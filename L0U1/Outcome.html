@@ -1,0 +1,47 @@
+{% extends "global/Page.html" %}
+
+{% block content %}
+
+<p class="mb-4 fs-5">あなたの選択とその結果（報酬額）が以下の通りです。ご確認ください。</p>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-sm text-center align-middle" style="min-width:320px;">
+    <thead class="table-light">
+      <tr>
+        <th>番号</th>
+        <th>あなたの選択</th>
+        <th>報酬額<br><span style="font-size:0.9em;">（成功/失敗）</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks_data %}
+      <tr>
+        <td>{{ task.task_number }}</td>
+        <td>{{ task.choice }}</td>
+        <td>
+          {% if task.outcome == "N/A" %}
+            <span>{{ task.payout }}万円</span>
+          {% else %}
+            {% if task.outcome == "Success" %}
+              <span class="text-success">{{ task.payout }}万円（成功）</span>
+            {% else %}
+              <span class="text-danger">{{ task.payout }}万円（失敗）</span>
+            {% endif %}
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+<p class="fs-4 text-end">合計額: {{ total_payout }}万円</p>
+
+
+<form method="post">
+    <button type="submit" class="btn btn-primary">次へ</button>
+</form>
+
+
+{% endblock %}

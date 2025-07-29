@@ -1,0 +1,36 @@
+{% extends "global/Page.html" %}
+{% block content %}
+
+<p class="mb-4 fs-5">各タスクについて、あなたが取りたい営業戦略を選択してください。安全策か挑戦策のいずれかを選んでください。</p>
+
+<form method="post">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>タスク番号</th>
+        <th>選択肢</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+      <tr>
+        <td>{{ task.index }}</td>
+        <td>
+          <label>
+            <input type="radio" name="choice{{ task.index }}" value="Safe" required>
+            {{ task.safe_text }}
+          </label>
+          <br>
+          <label>
+            <input type="radio" name="choice{{ task.index }}" value="Risky" required>
+            {{ task.risky_text }}
+          </label>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button type="submit" class="btn btn-primary">次へ</button>
+</form>
+
+{% endblock %}

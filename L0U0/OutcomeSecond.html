@@ -1,0 +1,43 @@
+{% extends "global/Page.html" %}
+
+{% block content %}
+
+<div class="table-responsive">
+  <table class="table table-bordered table-sm text-center align-middle" style="min-width:320px;">
+    <thead class="table-light">
+      <tr>
+        <th>タスク番号</th>
+        <th>あなたの選択</th>
+        <th>報酬額<br><span style="font-size:0.9em;">（成功/失敗）</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks_data_second %}
+      <tr>
+        <td>{{ task.task_number }}</td>
+        <td>{{ task.choice_second }}</td>
+        <td>
+          {% if task.choice_second == "Safe" %}
+            {{ task.payout_second }}
+          {% else %}
+            {% if task.outcome_second == "Success" %}
+              <span class="text-success">{{ task.payout_second }}（成功）</span>
+            {% else %}
+              <span class="text-danger">{{ task.payout_second }}（失敗）</span>
+            {% endif %}
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<p class="mt-3 text-end"><strong>合計報酬額: {{ total_payout_second }}</strong></p>
+
+
+<form method="post">
+    <button type="submit" class="btn btn-primary">次へ</button>
+</form>
+
+{% endblock %}

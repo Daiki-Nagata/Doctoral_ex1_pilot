@@ -1,0 +1,119 @@
+{% extends "global/Page.html" %}
+
+{% block content %}
+<h3 class="mb-3">アンケート</h3>
+<p class="mb-4 text-secondary">以下の質問にご回答ください。</p>
+
+<form method="post">
+
+  <!-- 7段階リッカートスケール（公平性・リスク認知） -->
+  <div class="mb-4">
+    {% for q, field in risk_items %}
+      <div class="mb-3">
+        <label><strong>{{ q }}</strong></label>
+        <div class="likert-scale d-flex justify-content-between align-items-center mt-2 mb-1">
+          {% for i in range(1,8) %}
+            <label class="text-center" style="width: 14%;">
+              <input type="radio" name="{{ field }}" value="{{ i }}" required>
+              <div style="font-size:0.9em;">{{ i }}</div>
+            </label>
+          {% endfor %}
+        </div>
+        <div class="likert-labels d-flex justify-content-between mb-2">
+          <span>まったくそう思わない</span>
+          <span>非常にそう思う</span>
+        </div>
+      </div>
+    {% endfor %}
+  
+    {% for q, field in fairness_items %}
+      <div class="mb-3">
+        <label><strong>{{ q }}</strong></label>
+        <div class="likert-scale d-flex justify-content-between align-items-center mt-2 mb-1">
+          {% for i in range(1,8) %}
+            <label class="text-center" style="width: 14%;">
+              <input type="radio" name="{{ field }}" value="{{ i }}" required>
+              <div style="font-size:0.9em;">{{ i }}</div>
+            </label>
+          {% endfor %}
+        </div>
+        <div class="likert-labels d-flex justify-content-between mb-2">
+          <span>まったくそう思わない</span>
+          <span>非常にそう思う</span>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- CRT（3問・3択＋わからない） -->
+  <div class="mb-4">
+    {% for q in crt_questions %}
+      <div class="mb-3">
+        <label><strong>{{ q.label }}</strong></label>
+        <div>
+          {% for choice in q.choices %}
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="{{ q.field }}" value="{{ choice.0 }}" required>
+              <label class="form-check-label">{{ choice.1 }}</label>
+            </div>
+          {% endfor %}
+        </div>
+        {{ formfield_errors q.field }}
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- 基本情報 -->
+  <div class="mb-4">
+    <h5>基本情報</h5>
+    <div class="mb-2">
+      <label><strong>年齢</strong></label>
+      <input type="number" name="age" class="form-control" min="18" max="99" required>
+    </div>
+    <div class="mb-2">
+      <label><strong>性別</strong></label>
+      <select name="gender" class="form-select" required>
+        <option value="">選択してください</option>
+        <option value="男性">男性</option>
+        <option value="女性">女性</option>
+        <option value="その他">その他</option>
+        <option value="回答しない">回答しない</option>
+      </select>
+    </div>
+    <div class="mb-2">
+      <label><strong>就労年数</strong></label>
+      <input type="number" name="work_years" class="form-control" min="0" max="80" required>
+    </div>
+    <div class="mb-2">
+      <label><strong>金融・会計知識（1〜7）</strong></label>
+      <div class="likert-scale d-flex justify-content-between align-items-center mt-2 mb-1">
+        {% for i in range(1,8) %}
+          <label class="text-center" style="width: 14%;">
+            <input type="radio" name="finance_knowledge" value="{{ i }}" required>
+            <div style="font-size:0.9em;">{{ i }}</div>
+          </label>
+        {% endfor %}
+      </div>
+      <div class="likert-labels d-flex justify-content-between mb-2">
+        <span>まったく知識がない</span>
+        <span>非常に知識がある</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-end">
+    <button class="btn btn-primary" type="submit">次へ</button>
+  </div>
+</form>
+
+<style>
+.likert-scale label {
+  text-align: center;
+  font-size: 0.9em;
+}
+.likert-labels {
+  font-size: 0.85em;
+  color: #555;
+}
+</style>
+{% endblock %}

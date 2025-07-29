@@ -1,0 +1,49 @@
+{% extends "global/Page.html" %}
+{% block content %}
+
+<p class="mb-4 fs-5">上司による評価修正後の金額と備考が表示されます。内容をご確認ください。</p>
+<p class="mb-3 text-danger fw-bold">
+  ※赤色は下方修正、青色は上方修正です。修正があったタスクは背景色で強調されています。
+</p>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-sm text-center align-middle" style="min-width:320px;">
+    <thead class="table-light">
+      <tr>
+        <th>番号</th>
+        <th>あなたの選択と結果</th>
+        <th>修正前の金額</th>
+        <th>修正額</th>
+        <th>修正後の金額</th>
+        <th>備考</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks_adjusted_data %}
+      <tr {% if task.diff != 0 %}style="background-color: #fff3cd;"{% endif %}>
+        <td>{{ task.task_number }}</td>
+        <td>{{ task.choice_result|safe }}</td>
+        <td>{{ task.original_amount }}万円</td>
+        <td><strong>{{ task.diff_colored|safe }}</strong>万円</td>
+        <td>{{ task.adjusted_amount }}万円</td>
+        <td>
+          {% if task.diff > 0 %}
+            <span style="color: blue;">&#9650; {{ task.remark|safe }}</span>
+          {% elif task.diff < 0 %}
+            <span style="color: red;">&#9660; {{ task.remark|safe }}</span>
+          {% else %}
+            {{ task.remark|safe }}
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<p class="fs-4 text-end">合計額: {{ total_adjusted_payout }}万円</p>
+
+<form method="post">
+    <button type="submit" class="btn btn-primary">次へ</button>
+</form>
+
+{% endblock %}

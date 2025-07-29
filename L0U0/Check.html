@@ -1,0 +1,111 @@
+{% extends "global/Page.html" %}
+
+{% block content %}
+<h3 class="mb-3">理解度チェック</h3>
+<p class="text-secondary mb-4">以下の質問にご回答ください。正解するまで先に進めません。</p>
+<form method="post">
+  <!-- Q1 -->
+  <div class="mb-4">
+    <label><strong>{{ questions.0.label }}</strong></label>
+    <div>
+      {% for choice in questions.0.choices %}
+        <div class="form-check">
+          <input class="form-check-input"
+                type="radio"
+                name="check1"
+                id="check1_{{ choice.0 }}"
+                value="{{ choice.0 }}"
+                {% if check1 and check1 == choice.0 %}checked{% endif %}
+                required>
+          <label class="form-check-label" for="check1_{{ choice.0 }}">
+            {{ choice.1 }}
+          </label>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- Q2 -->
+  <div class="mb-4">
+    <label><strong>{{ questions.1.label }}</strong></label>
+    <div>
+      {% for choice in questions.1.choices %}
+        <div class="form-check">
+          <input class="form-check-input"
+                type="radio"
+                name="check2"
+                id="check2_{{ choice.0 }}"
+                value="{{ choice.0 }}"
+                {% if check2 and check2 == choice.0 %}checked{% endif %}
+                required>
+          <label class="form-check-label" for="check2_{{ choice.0 }}">
+            {{ choice.1 }}
+          </label>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- Q3 -->
+  <div class="mb-4">
+    <label><strong>{{ questions.2.label }}</strong></label>
+    <div>
+      {% for choice in questions.2.choices %}
+        <div class="form-check">
+          <input class="form-check-input"
+                 type="radio"
+                 name="check3"
+                 id="check3_{{ choice.0 }}"
+                 value="{{ choice.0 }}"
+                 {% if check3 and check3 == choice.0 %}checked{% endif %}
+                 required>
+          <label class="form-check-label" for="check3_{{ choice.0 }}">
+            {{ choice.1 }}
+          </label>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- Q4 -->
+  <div class="mb-4">
+    <label><strong>{{ questions.3.label }}</strong></label>
+    <div>
+      {% for choice in questions.3.choices %}
+        <div class="form-check">
+          <input class="form-check-input"
+                 type="radio"
+                 name="check4"
+                 id="check4_{{ choice.0 }}"
+                 value="{{ choice.0 }}"
+                 {% if check4 and check4 == choice.0 %}checked{% endif %}
+                 required>
+          <label class="form-check-label" for="check4_{{ choice.0 }}">
+            {{ choice.1 }}
+          </label>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- Q5 -->
+  <div class="mb-4">
+    <label><strong>{{ questions.4.label }}</strong></label>
+    <div>
+      {% for choice in questions.4.choices %}
+        <div class="form-check">
+          <input class="form-check-input"
+                 type="radio"
+                 name="check5"
+                 id="check5_{{ choice.0 }}"
+                 value="{{ choice.0 }}"
+                 {% if check5 and check5 == choice.0 %}checked{% endif %}
+                 required>
+          <label class="form-check-label" for="check5_{{ choice.0 }}">
+            {{ choice.1 }}
+          </label>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="text-end">
+    <button type="submit" class="btn btn-primary">次へ</button>
+  </div>
+</form>
+{% endblock %}
