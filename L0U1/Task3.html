@@ -1,0 +1,21 @@
+{% extends "global/Page.html" %}
+{% block content %}
+
+<p class="mb-4 fs-5">タスク {{ task_number }} / 10</p>
+
+<form method="post">
+  <div class="mb-4">
+    <label>
+      <input type="radio" name="{{ form_field }}" value="Safe" required>
+      {{ safe_text }}
+    </label>
+    <br>
+    <label>
+      <input type="radio" name="{{ form_field }}" value="Risky" required>
+      {{ risky_text }}
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary">次へ</button>
+</form>
+
+{% endblock %}
